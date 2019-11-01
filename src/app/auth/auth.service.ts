@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from  'rxjs/operators';
 
-import { User } from './user';
+import { User, UserRegisterData, UserLoginData } from './user';
 import { AuthResponse } from './auth-response';
 
 @Injectable({
@@ -32,9 +32,21 @@ export class AuthService {
     private storage: Storage,
   ) { }
 
-  public register(user: User): Observable<AuthResponse> {
+  public register(user: UserRegisterData): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/auth/register`, user)
+      // .pipe(
+      //   tap(async (res: AuthResponse) => {
+      //     if (res.user) {
+      //       await this.setTokens(res);
+      //     }
+      //   })
+      // );
+  }
+
+  public login(user: UserLoginData): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/auth/login`, user)
       .pipe(
         tap(async (res: AuthResponse) => {
           if (res.user) {
