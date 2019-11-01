@@ -18,10 +18,11 @@ export class RegisterPage implements OnInit {
     private fb: FormBuilder,
   ) {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
+      first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      confirm_password: ['', Validators.required],
     });
   }
 
